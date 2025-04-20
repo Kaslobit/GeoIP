@@ -1,0 +1,13 @@
+# List of SHA-256 hashes of valid API keys
+api_key_hashes:
+  # This is the hash of "my-secure-api-key"
+  # Use a tool like pwgen to generate API keys
+  - 0b21665133000ed0918be369efd62a7886b5b382afba0a66ca7adfe88340d9e8
+
+# The SHA-256 hash of the admin API key
+# This is the hash of "my-secure-admin-key"
+admin_key_hash: 9c8013792e28b3680949d6fdf4422800c732bc39b3591f462fe86fedb7eb3fec
+
+# Whether to log invalid tokens
+# If true, the token is logged if it was invalid
+log_invalid_tokens: false
