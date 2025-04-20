@@ -152,7 +152,7 @@ fun main() {
                 }
 
                 // Log all loookups
-                logger.info("Lookup from ${call.request.origin.remoteHost} for IP $inet")
+                logger.info("Lookup from ${call.request.origin.remoteHost} for IP $ipParam")
                 call.respond(
                     GeoResult(
                         ip = ipParam,

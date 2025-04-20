@@ -14,7 +14,7 @@ Build this how you would any other Gradle project:
 ```
 Run it like so:
 ```bash
-java -jar build/libs/GeoIP-1.1.jar
+java -jar build/libs/GeoIP-1.2.jar
 ```
 The jar binds to port 8080, which is hardcoded for now.
 
