@@ -46,7 +46,11 @@ data class AppConfig(
     val adminKey: String? = null,
 
     @JsonProperty("log_invalid_tokens")
-    val logInvalidTokens: Boolean = false
+    val logInvalidTokens: Boolean = false,
+
+    // This is var for a reason, you'll see why when we start the server
+    @JsonProperty("port")
+    var port: Int = 8080
 )
 
 // Create our mapper and logger
@@ -78,8 +82,14 @@ fun main() {
     // Set up our config
     val configFile = File("config.yaml")
     appConfig = loadConfigFromYaml(configFile)
+    // For whatever reason, if the port isn't present in config.yaml, it defaults to 0 despite the default being defined
+    // We need to fix that, otherwise we get a random port
+    if (appConfig.port == 0) {
+        appConfig.port = 8080
+        logger.info("Port not defined, using port 8080")
+    }
 
-    embeddedServer(Netty, port = 8080) {
+    embeddedServer(Netty, port = appConfig.port) {
         // Use Jackson for serialization
         install(ContentNegotiation) {
             jackson()
