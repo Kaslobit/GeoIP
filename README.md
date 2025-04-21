@@ -30,7 +30,7 @@ api_key_hashes:
   - SHA-256 sum of an API key
 ```
 
-You can also copy `exmaple.config.yaml` to `config.yaml` and customize it.
+You can also copy `example.config.yaml` to `config.yaml` and customize it.
 
 ### Calling the API
 
