@@ -20,13 +20,21 @@ import java.net.InetAddress
 import java.security.MessageDigest
 import org.slf4j.LoggerFactory
 
-// Output data structure
+// Output data structures
 data class GeoResult(
     val ip: String,
     val country: String?,
     val city: String?,
+    val mostSpecificSubdivision: String?,
+    val postalCode: String?,
+    val location: LocationInfo
+)
+
+data class LocationInfo(
     val lat: Double?,
-    val lon: Double?
+    val lon: Double?,
+    val accuracyRadius: Int?,
+    val timeZone: String?
 )
 
 // Error response structure
@@ -158,8 +166,14 @@ fun main() {
                         ip = ipParam,
                         country = result.country.name,
                         city = result.city.name,
-                        lat = result.location.latitude,
-                        lon = result.location.longitude
+                        mostSpecificSubdivision = result.mostSpecificSubdivision.name,
+                        postalCode = result.postal.code,
+                        location = LocationInfo(
+                            lat = result.location.latitude,
+                            lon = result.location.longitude,
+                            accuracyRadius = result.location.accuracyRadius,
+                            timeZone = result.location.timeZone
+                        )
                     )
                 )
             }

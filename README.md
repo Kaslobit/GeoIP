@@ -14,9 +14,9 @@ Build this how you would any other Gradle project:
 ```
 Run it like so:
 ```bash
-java -jar build/libs/GeoIP-1.2.jar
+java -jar build/libs/GeoIP-1.3.jar
 ```
-The jar binds to port 8080, which is hardcoded for now.
+The jar binds to port 8080 by default, which can be changed in the config file.
 
 ### Configuration
 
@@ -24,7 +24,7 @@ The jar expects two files called `GeoLite2-City.mmdb` and `config.yaml` to be pr
 
 Download the MaxMind database and save it as `GeoLite2-City.mmdb`. See [MaxMind's docs](https://dev.maxmind.com/geoip/updating-databases/) for help. Create a new file called `config.yaml`.
 
-This is the minimum required in `config.yaml`
+This is the minimum required in `config.yaml`:
 ```yaml
 api_key_hashes:
   - SHA-256 sum of an API key
@@ -34,22 +34,33 @@ You can also copy `exmaple.config.yaml` to `config.yaml` and customize it.
 
 ### Calling the API
 
-Make a `GET` request to the `/geo` route like so:
+Let's use the IP address of one of Mullvad's servers as an example. Make a `GET` request to the `/geo` route like so:
 ```bash
 curl -H "Authorization: Bearer my-secure-api-key" \
-http://localhost:8080/geo?ip=8.8.8.8
+http://localhost:8080/geo?ip=87.249.134.1
 ```
 This returns a JSON document:
 ```json
 {
-  "ip": "8.8.8.8",
+  "ip": "87.249.134.1",
   "country": "United States",
-  "city": null,
-  "lat": 37.751,
-  "lon": -97.822
+  "city": "Chicago",
+  "mostSpecificSubdivision": "Illinois",
+  "postalCode": "60602",
+  "location": {
+    "lat": 41.8835,
+    "lon": -87.6305,
+    "accuracyRadius": 20,
+    "timeZone": "America/Chicago"
+  }
 }
+
 ```
 All fields except `ip` can be null.
+
+`mostSpecificSubdivision` is the most precise subdivision applicable, depending on the country. For example, it's a state for an IP in the US, but it might be a county for an IP in England.
+
+`accuracyRadius` is the radius in kilometers from the latitude and longitude that the IP address is likely inside.
 
 Making a `POST` request to the `/reload` route will reload `config.yaml`, updating the list of valid key hashes. The `/reload` route requires the admin key. The admin key is not allowed access to the `/geo` route.
 
