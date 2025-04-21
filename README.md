@@ -2,7 +2,7 @@
 
 A service providing IP geolocation, written in Kotlin. Hardcoded to use GeoLite2-City. Simple bearer auth API with live config reloading.
 
-The server logs all successful lookups and all errors.
+The server logs all successful lookups and all errors, except for invalid IP errors.
 
 ## Usage
 
