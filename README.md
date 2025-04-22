@@ -37,7 +37,7 @@ You can also copy `example.config.yaml` to `config.yaml` and customize it.
 Let's use the IP address of one of Mullvad's servers as an example. Make a `GET` request to the `/geo` route like so:
 ```bash
 curl -H "Authorization: Bearer my-secure-api-key" \
-http://localhost:8080/geo?ip=87.249.134.1
+"http://localhost:8080/geo?ip=87.249.134.1"
 ```
 This returns a JSON document:
 ```json
